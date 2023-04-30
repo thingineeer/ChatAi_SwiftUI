@@ -5,7 +5,7 @@
 //  Created by 이명진 on 2023/04/29.
 //
 
-import Foundation
+import Foundation // 수정 할 부분
 
 func getBotResponse(message: String) -> String {
     let tempMessage = message.lowercased()
