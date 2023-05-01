@@ -26,6 +26,7 @@ struct ContentView: View {
                 Image(systemName: "bubble.left.fill")
                     .font(.system(size: 26))
                     .foregroundColor(Color.blue)
+                
             }
             
             ScrollView {
@@ -33,7 +34,7 @@ struct ContentView: View {
                     if message.contains("[USER]") {
                         let newMessage = message.replacingOccurrences(of: "[USER]", with: "")
                         
-                        HStack {
+                        HStack { // user
                             Spacer()
                             Text(newMessage)
                                 .padding()
@@ -42,9 +43,10 @@ struct ContentView: View {
                                 .cornerRadius(10)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 10)
+                            
                         }
                         
-                    } else {
+                    } else { // model
                         
                         HStack {
                             Text(message)
@@ -62,6 +64,7 @@ struct ContentView: View {
                 .background(Color.gray.opacity(0.10))
             
             HStack {
+                
                 TextField("입력", text: $messageText)
                     .padding()
                     .background(Color.gray.opacity(0.1))
@@ -77,32 +80,72 @@ struct ContentView: View {
                 }
                 .font(.system(size: 26))
                 .padding(.horizontal, 10)
+                
             }
             .padding()
             
+            
         }
+        .padding()
+        
     }
     
     
+    private func predict(query: String) {
+        let url = URL(string: "http://192.168.176.183:8000/predict")!
+        // 재혁 192.168.148.196
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        let inputData = ["query": query]  // 입력 데이터
+        request.httpBody = try? JSONSerialization.data(withJSONObject: inputData, options: [])
+
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let error = error {
+                print("Error:", error)
+                return
+            }
+
+            guard let data = data else {
+                print("No data received")
+                return
+            }
+
+            do {
+                let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
+                if let result = result {
+                    DispatchQueue.main.async {
+                        let botResponse = result["bot_response"] as? String ?? "Sorry, I didn't understand"
+                        self.messages.append(botResponse)
+                    }
+                }
+            } catch let error {
+                print("Error serializing JSON:", error)
+            }
+        }.resume()
+    }
     
     func sendMessage(message: String) {
         withAnimation {
             messages.append("[USER]" + message)
+            // print(messages)
             self.messageText = ""
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             withAnimation {
-                messages.append(getBotResponse(message: message))
+                predict(query: message)
             }
         }
     }
+    
+    
 }
-
-
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }
 }
+
+
