@@ -65,7 +65,7 @@ struct ContentView: View {
             
             HStack {
                 
-                TextField("입력", text: $messageText)
+                TextField("문장을 입력하세요", text: $messageText)
                     .padding()
                     .background(Color.gray.opacity(0.1))
                     .cornerRadius(10)
@@ -84,7 +84,7 @@ struct ContentView: View {
             }
             .padding()
             
-            
+
         }
         .padding()
         
@@ -125,6 +125,7 @@ struct ContentView: View {
         }.resume()
     }
     
+    
     func sendMessage(message: String) {
         withAnimation {
             messages.append("[USER]" + message)
@@ -138,6 +139,7 @@ struct ContentView: View {
             }
         }
     }
+    
     
     
 }
