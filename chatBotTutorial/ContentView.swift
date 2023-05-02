@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var messageText = ""
-    @State var messages: [String] = ["Welcome to App"]
+    @State var messages: [String] = ["궁금한 문장을 입력하시오."]
     
     
     var body: some View {
@@ -55,6 +55,7 @@ struct ContentView: View {
                                 .cornerRadius(10)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 10)
+                            
                             Spacer()
                         }
                         
@@ -92,8 +93,8 @@ struct ContentView: View {
     
     
     private func predict(query: String) {
-        let url = URL(string: "http://192.168.176.183:8000/predict")!
-        // 재혁 192.168.148.196
+        let url = URL(string: "http://192.168.149.206:8000/predict")!
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -115,7 +116,7 @@ struct ContentView: View {
                 let result = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
                 if let result = result {
                     DispatchQueue.main.async {
-                        let botResponse = result["bot_response"] as? String ?? "Sorry, I didn't understand"
+                        let botResponse = result["result"] as? String ?? "캐스팅 실패"
                         self.messages.append(botResponse)
                     }
                 }
