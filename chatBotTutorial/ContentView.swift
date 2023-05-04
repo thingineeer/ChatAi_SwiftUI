@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     
     @State private var messageText = ""
-    @State var messages: [String] = ["궁금한 문장을 입력하시오."]
+    @State var messages: [String] = ["안녕하세요 궁금한 문장을 입력하세요."]
     
     
     var body: some View {
@@ -43,10 +43,21 @@ struct ContentView: View {
                                 .cornerRadius(10)
                                 .padding(.horizontal, 16)
                                 .padding(.bottom, 10)
+                                .font(.system(size:16))
                             
                         }
                         
                     } else { // model
+                        
+                        HStack{
+                            Text("🙂")
+                                .font(.title2)
+                                .padding(.bottom, 1)
+                                .padding(.horizontal, 5)
+                                .cornerRadius(5)
+                                
+                            Spacer()
+                        }
                         
                         HStack {
                             Text(message)
@@ -93,7 +104,7 @@ struct ContentView: View {
     
     
     private func predict(query: String) {
-        let url = URL(string: "http://192.168.149.206:8000/predict")!
+        let url = URL(string: "http://192.168.176.52:8000/predict")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
