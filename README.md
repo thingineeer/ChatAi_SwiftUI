@@ -1,5 +1,5 @@
 # ChatAi_SwiftUI
-  Hongik CE graduation project
+  Hongik CE Graduation Project
   
 <p>
   <img src="https://img.shields.io/badge/SwiftUI-F05138?style=flat-square&logo=Swift&logoColor=white"/>
