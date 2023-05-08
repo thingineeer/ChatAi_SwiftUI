@@ -29,7 +29,7 @@ struct ContentView: View {
                 
             }
             
-            ScrollView (.vertical, showsIndicators: false, content: {
+            ScrollView (.vertical, showsIndicators: false, content: { // scrollbar 삭제
                 ForEach(messages, id: \.self) { message in
                     if message.contains("[USER]") {
                         let newMessage = message.replacingOccurrences(of: "[USER]", with: "")
