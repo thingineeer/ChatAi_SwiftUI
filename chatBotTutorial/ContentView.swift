@@ -29,7 +29,7 @@ struct ContentView: View {
                 
             }
             
-            ScrollView {
+            ScrollView (.vertical, showsIndicators: false, content: {
                 ForEach(messages, id: \.self) { message in
                     if message.contains("[USER]") {
                         let newMessage = message.replacingOccurrences(of: "[USER]", with: "")
@@ -72,7 +72,7 @@ struct ContentView: View {
                         
                     }
                 }.rotationEffect(.degrees(180))
-            }.rotationEffect(.degrees(180))
+            }).rotationEffect(.degrees(180))
                 .background(Color.gray.opacity(0.10))
             
             HStack {
@@ -104,7 +104,7 @@ struct ContentView: View {
     
     
     private func predict(query: String) {
-        let url = URL(string: "http://192.168.176.52:8000/predict")!
+        let url = URL(string: "http://192.168.0.19:8000/predict")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
