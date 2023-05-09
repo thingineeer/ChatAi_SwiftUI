@@ -104,7 +104,7 @@ struct ContentView: View {
     
     
     private func predict(query: String) {
-        let url = URL(string: "http://192.168.0.19:8000/predict")!
+        let url = URL(string: "http://10.90.6.227:8000/predict")!
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
