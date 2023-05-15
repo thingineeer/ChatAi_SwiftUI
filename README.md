@@ -14,6 +14,5 @@
 
 <img width="621" alt="image" src="https://user-images.githubusercontent.com/88179341/236993875-7d2d15bc-4b91-4931-aea6-519f405de632.png">
 
-- model
-
+- 
 
