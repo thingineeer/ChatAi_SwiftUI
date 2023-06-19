@@ -1,5 +1,9 @@
 # ChatAi_SwiftUI
 
+
+- ### A 와 B 가 어떤 관계인지 대답해 줍니다.
+
+
   
 <p>
   <img src="https://img.shields.io/badge/SwiftUI-F05138?style=flat-square&logo=Swift&logoColor=white"/>
